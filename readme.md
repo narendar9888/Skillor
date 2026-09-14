@@ -1,8 +1,8 @@
-# 🌐 Skillora
+# 🌐 Skillor
 
 ## 1. Project Overview
 
-**Skillora** is a full-stack web platform where people can find other users who have skills they want to learn and exchange skills with them.
+**Skillor** is a full-stack web platform where people can find other users who have skills they want to learn and exchange skills with them.
 
 The core idea is:
 
@@ -52,12 +52,12 @@ Therefore, the system recommends:
 
 # 2. Brand Identity
 
-## 🌐 Skillora
+## 🌐 Skillor
 
 **Tagline:**  
 > **Learn. Share. Grow.**
 
-**Skillora** is a peer-to-peer skill exchange platform where users can teach the skills they know and learn the skills they want.
+**Skillor** is a peer-to-peer skill exchange platform where users can teach the skills they know and learn the skills they want.
 
 The platform's core idea is:
 
@@ -1908,5 +1908,3 @@ Reviews
 Notifications
 AI Matching
 ```
-
-This keeps the project manageable while still giving you a strong **full-stack + algorithm-based portfolio project**.
