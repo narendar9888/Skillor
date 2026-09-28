@@ -1,7 +1,9 @@
+import Mainlayout from "./Mainlayout/mainlayout";
+
 function App() {
   return (
     <div>
-      <h1>My React Project</h1>
+      <Mainlayout/>
     </div>
   );
 }
