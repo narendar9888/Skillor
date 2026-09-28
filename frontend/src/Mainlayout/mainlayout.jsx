@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import HowToWork from "../pages/Howitwork";
 import About from "../pages/About";
 import Footer from "../components/layout/Footer";
+import Dashboard from "../pages/Dashboard";
 
 function Mainlayout() {
     const [activePage, setActivePage] = useState("home");
@@ -17,6 +18,8 @@ function Mainlayout() {
                 {activePage === "how-to-work" && <HowToWork/>}
 
                 {activePage === "about" && <About/>}
+
+                {activePage === "dashboard" && <Dashboard />}
             </main>
             <Footer/>
         </div>
