@@ -6,17 +6,12 @@ function Navbar({activePage, setActivePage}) {
     const [currentUser, logout] = useState(false); /// it change after useAuth
 
 
-    const navLinks = currentUser
-        ? [
-            {id: 'deskboard', label: 'Deskborad'},
-            {id: 'match', label: 'Matches'},
-            {id: 'messages', label: 'Messages'}
-        ]
-        : [
-            {id: 'home', label: 'Home'},
-            {id: 'how-to-work', label: "How It Works"},
-            {id: 'about', label: "About"}
-        ]
+   const navLinks = [
+    { id: "home", label: "Home" },
+    { id: "dashboard", label: "Dashboard" },
+    { id: "how-to-work", label: "How It Works" },
+    { id: "about", label: "About" }
+];
     return(
         <header className="nav">
             <div className="main">
