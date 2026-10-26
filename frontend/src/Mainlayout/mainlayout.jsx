@@ -5,7 +5,7 @@ import HowToWork from "../pages/Howitwork";
 import About from "../pages/About";
 import Footer from "../components/layout/Footer";
 import Dashboard from "../pages/Dashboard";
-import Matches from "../pages/Matches"
+import Matches from "../pages/Matches";
 
 function Mainlayout() {
     const [activePage, setActivePage] = useState("home");

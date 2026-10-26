@@ -814,44 +814,6 @@ function About({ setActivePage }) {
               </div>
             ))}
           </div>
-
-
-          {/* <div className="about-milestone-banner">
-            <div className="about-milestone-quote-col">
-              <p className="about-milestone-quote">
-                "In 2024, our first 100 beta members completed 840 reciprocal trades. Today, over 14,000 members prove
-                that human generosity and skill sharing beat tuition every single time."
-              </p>
-            </div>
-            <div className="about-milestone-avatars-col">
-              <div className="about-avatar-stack">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80"
-                  alt="Member"
-                  className="about-stack-avatar"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80"
-                  alt="Member"
-                  className="about-stack-avatar"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80"
-                  alt="Member"
-                  className="about-stack-avatar"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
-                  alt="Member"
-                  className="about-stack-avatar"
-                />
-              </div>
-              <div className="about-milestone-label-box">
-                <span className="about-pulse-indicator"></span>
-                <span className="about-milestone-active-text">14,000+ active peers trading daily</span>
-              </div> 
-             </div> 
-          </div> */}
         </div>
       </section>
 
