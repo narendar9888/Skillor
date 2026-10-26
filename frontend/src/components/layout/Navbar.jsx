@@ -10,6 +10,7 @@ const navLinks = currentUser
     ? [
         { id: "dashboard", label: "Dashboard" },
         { id: "matches", label: "Matches" },
+        {id: "request", label: "Request"},
         { id: "messages", label: "Messages" }
     ]
     : [
