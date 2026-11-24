@@ -1,4 +1,18 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const rawApiUrl = (import.meta.env.VITE_API_URL || '/api').trim();
+
+// Normalize URL: remove trailing slashes
+let normalizedUrl = rawApiUrl.replace(/\/+$/, '');
+
+// Ensure /api is appended if a full host is provided without /api
+if (/^https?:\/\//i.test(normalizedUrl)) {
+  if (!normalizedUrl.endsWith('/api')) {
+    normalizedUrl = `${normalizedUrl}/api`;
+  }
+} else if (!normalizedUrl.startsWith('/api') && normalizedUrl !== '') {
+  normalizedUrl = `/${normalizedUrl}`;
+}
+
+const API_BASE_URL = normalizedUrl || '/api';
 
 export const getToken = () => localStorage.getItem('skillor_token');
 export const setToken = (token) => {
@@ -9,9 +23,9 @@ export const setToken = (token) => {
   }
 };
 
-
 async function apiRequest(endpoint, options = {}) {
-  const url = `${API_BASE_URL}${endpoint}`;
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = `${API_BASE_URL}${cleanEndpoint}`;
   const token = getToken();
 
   const isFormData =
@@ -26,7 +40,7 @@ async function apiRequest(endpoint, options = {}) {
     ...options.headers,
   };
 
-  // Browser must set multipart boundary automatically
+  // Browser sets multipart boundary automatically
   if (isFormData) {
     Object.keys(headers).forEach((key) => {
       if (key.toLowerCase() === "content-type") {
@@ -71,12 +85,11 @@ async function apiRequest(endpoint, options = {}) {
       success: false,
       message:
         err.message ||
-        "Network connection error. Is the backend server running on port 5001?",
+        "Network connection error. If your backend is hosted on Render, please allow 30-50 seconds for the free instance to spin up from sleep.",
       isNetworkError: true,
     };
   }
 }
-
 
 export const api = {
   auth: {

@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,9 +25,12 @@
     "globals": "^17.12.0",
     "vite": "^8.3.0"
   },
-  "description": "",
-  "main": "eslint.config.js",
-  "keywords": [],
+  "description": "Skillor Frontend React Application",
+  "keywords": [
+    "skillor",
+    "react",
+    "vite"
+  ],
   "author": "",
   "license": "ISC"
 }

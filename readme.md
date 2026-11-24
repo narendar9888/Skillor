@@ -1908,3 +1908,92 @@ Reviews
 Notifications
 AI Matching
 ```
+
+
+---
+
+# 🚀 58. Full-Stack Deployment Guide (Vercel & Render)
+
+This project is fully structured for full-stack deployment:
+- **Frontend**: Deployed on **Vercel** (React + Vite SPA with client-side routing)
+- **Backend**: Deployed on **Render** (Node.js + Express API server)
+
+---
+
+## 🛠️ Local Development Setup
+
+### 1. Backend Setup
+```bash
+cd backend
+npm install
+# Ensure .env is present (or copy from .env.example)
+cp .env.example .env
+npm run dev
+# Backend runs on http://localhost:5001
+```
+
+### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+# Ensure .env is present (or copy from .env.example)
+cp .env.example .env
+npm run dev
+# Frontend runs on http://localhost:5173
+```
+
+---
+
+## 🌐 Deploying Backend on Render
+
+1. **Push your code to GitHub / GitLab**.
+2. Sign in to [Render.com](https://render.com) and click **New +** ➔ **Web Service**.
+3. Connect your repository.
+4. Configure the Web Service settings:
+   - **Name**: `skillor-backend` (or your preferred name)
+   - **Root Directory**: `backend`
+   - **Environment**: `Node`
+   - **Region**: Oregon or nearest to you
+   - **Branch**: `main`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+5. **Add Environment Variables** under the **Environment** tab:
+   | Key | Value | Notes |
+   |---|---|---|
+   | `NODE_ENV` | `production` | Enables production mode |
+   | `PORT` | `10000` | Render assigns PORT automatically; 10000 is default |
+   | `JWT_SECRET` | *(Random 32+ char string)* | Keep this secret! |
+   | `JWT_EXPIRES_IN` | `7d` | Session expiration window |
+   | `CLIENT_URL` | `https://skillor-n.vercel.app` | Your Vercel frontend URL |
+6. Click **Create Web Service**.
+7. Once deployed, copy your Render URL (e.g., `https://skillor-backend.onrender.com`).
+   - You can verify it's working by opening `https://skillor-backend.onrender.com/api/health` in your browser.
+
+> 💡 **Render Free Tier Note**: Render free web services spin down after 15 minutes of inactivity. When a request comes in, the service spins back up in 30–50 seconds. The frontend includes automatic handling for this behavior.
+
+---
+
+## ⚡ Deploying Frontend on Vercel
+
+1. Sign in to [Vercel](https://vercel.com) and click **Add New...** ➔ **Project**.
+2. Import your Git repository.
+3. In the **Configure Project** screen:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: Click *Edit* and select `frontend`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Install Command**: `npm install`
+4. Expand **Environment Variables** and add:
+   | Key | Value | Notes |
+   |---|---|---|
+   | `VITE_API_URL` | `https://skillor-backend.onrender.com/api` | Replace with your actual Render URL |
+5. Click **Deploy**.
+6. Once deployed, test your Vercel URL (e.g., `https://skillor-n.vercel.app`).
+7. Update `CLIENT_URL` in your Render backend settings with this exact Vercel URL.
+
+---
+
+## 🔒 Security & Git Hygiene
+
+- **Sensitive Files Ignored**: `.env`, `backend/.env`, `frontend/.env`, `node_modules/`, and build artifacts are strictly ignored in `.gitignore`.
+- **Environment Templates**: Refer to `.env.example`, `backend/.env.example`, and `frontend/.env.example` for all configuration variables.

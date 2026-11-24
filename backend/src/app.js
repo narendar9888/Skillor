@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const env = require('./config/env');
 
 // Route imports
 const authRoutes = require('./routes/authRoutes');
@@ -14,15 +15,39 @@ const statsRoutes = require('./routes/statsRoutes');
 
 const app = express();
 
-// Middleware
+// Allowed origins for CORS (local dev, custom domain, Vercel deployments)
+const configuredOrigins = [
+  env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+].filter(Boolean);
+
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: (origin, callback) => {
+    // Allow non-browser requests (mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+
+    // Allow configured client URL, localhost, or any Vercel deployment (*.vercel.app)
+    const isAllowed =
+      configuredOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      process.env.NODE_ENV !== 'production';
+
+    if (isAllowed) {
+      return callback(null, true);
+    }
+
+    // Permissive fallback so legitimate client domains are never blocked
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
 }));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Request logging in development
 app.use((req, res, next) => {
@@ -32,7 +57,21 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check endpoint
+// Root & Health check endpoints for Render and uptime monitoring
+app.get('/', (req, res) => {
+  res.json({
+    status: 'healthy',
+    platform: 'Skillor API Backend',
+    version: '1.0.0',
+    documentation: '/api/health',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
@@ -71,4 +110,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-

@@ -817,7 +817,7 @@
         "usr_narendar",
         "usr_priya"
       ],
-      "updatedAt": "2026-11-20T04:26:23.375Z"
+      "updatedAt": "2026-11-21T18:58:28.433Z"
     },
     {
       "id": "conv_narendar_aarav",
@@ -905,6 +905,15 @@
       "image": null,
       "read": true,
       "updatedAt": "2026-11-20T04:33:50.476Z"
+    },
+    {
+      "id": "msg_1795287508433_fksn",
+      "createdAt": "2026-11-21T18:58:28.433Z",
+      "conversationId": "conv_narendar_priya",
+      "senderId": "usr_narendar",
+      "text": "Automated test message",
+      "image": null,
+      "read": false
     }
   ],
   "notifications": []

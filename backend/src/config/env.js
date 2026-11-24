@@ -1,5 +1,9 @@
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+const dotenv = require('dotenv');
+
+// Check both local backend/.env and root .env
+dotenv.config({ path: path.join(__dirname, '../../.env') });
+dotenv.config({ path: path.join(__dirname, '../../../.env') });
 
 const env = {
   PORT: process.env.PORT || 5001,

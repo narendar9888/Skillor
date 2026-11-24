@@ -22,6 +22,29 @@ const initialData = {
   notifications: [],
 };
 
+// Safely require seed data for fresh or ephemeral deployments (e.g. Render)
+let seedData = null;
+try {
+  seedData = require('../data/seedData');
+} catch (e) {
+  console.warn('[DB] seedData could not be loaded:', e.message);
+}
+
+const getSeededData = () => {
+  if (!seedData) return initialData;
+  return {
+    users: seedData.seedUsers || [],
+    skills: seedData.seedSkills || [],
+    userSkills: seedData.seedUserSkills || [],
+    exchangeRequests: seedData.seedExchangeRequests || [],
+    sessions: seedData.seedSessions || [],
+    reviews: seedData.seedReviews || [],
+    conversations: seedData.seedConversations || [],
+    messages: seedData.seedMessages || [],
+    notifications: [],
+  };
+};
+
 class JsonDb {
   constructor() {
     this.filePath = DB_FILE;
@@ -33,13 +56,19 @@ class JsonDb {
       if (fs.existsSync(this.filePath)) {
         const raw = fs.readFileSync(this.filePath, 'utf-8');
         const parsed = JSON.parse(raw);
-        return { ...initialData, ...parsed };
+        // If file exists and contains users, use it
+        if (parsed && Array.isArray(parsed.users) && parsed.users.length > 0) {
+          return { ...initialData, ...parsed };
+        }
       }
     } catch (err) {
       console.error('[DB] Error loading db.json, initializing fresh store:', err.message);
     }
-    this.save(initialData);
-    return { ...initialData };
+
+    // Auto-seed if db file is missing or has empty users
+    const freshData = getSeededData();
+    this.save(freshData);
+    return { ...freshData };
   }
 
   save(data = this.data) {
@@ -150,4 +179,3 @@ class JsonDb {
 const db = new JsonDb();
 
 module.exports = db;
-
